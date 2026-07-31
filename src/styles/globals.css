@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-charcoal: #303841;
+  --color-tealAccent: #76ABAE;
+  --color-lightGray: #F5F5F5;
+  --color-orangeAccent: #FF5722;
+
+  /* Legacy color mapping for safety */
+  --color-lacivert: #303841;
+  --color-mavi: #76ABAE;
+  --color-acikGri: #F5F5F5;
+  --color-koyuGri: #303841;
+  
+  --font-sans: "Inter", "sans-serif";
+  --font-family-sans: "Inter", "sans-serif";
+  
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-marquee2: marquee2 25s linear infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+  @keyframes marquee2 {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0%); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-lightGray text-charcoal font-sans antialiased;
+  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Custom Swiper Styles for Reference Slider */
+.swiper-pagination-bullet-active {
+  background-color: #1c2c44 !important;
+}
+
+.glass-panel {
+  @apply bg-white/70 backdrop-blur-md shadow-lg border border-white/20;
+}
