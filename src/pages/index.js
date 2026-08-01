@@ -10,6 +10,15 @@ export default function Home() {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
 
+  const partnerLogos = [
+    { id: 1, src: '/partners/images.png', alt: 'Partner 1' },
+    { id: 2, src: '/partners/images2.png', alt: 'Partner 2' },
+    { id: 3, src: '/partners/images3.jpeg', alt: 'Partner 3' },
+    { id: 4, src: '/partners/images4.jpeg', alt: 'Partner 4' },
+    { id: 5, src: '/partners/images4_2.jpeg', alt: 'Partner 5' },
+    { id: 6, src: '/partners/images5.png', alt: 'Partner 6' },
+  ];
+
   const stats = [
     { title: t('home.stat1'), value: t('home.stat1Val'), subtitle: t('home.stat1Sub') },
     { title: t('home.stat2'), value: t('home.stat2Val'), subtitle: t('home.stat2Sub') },
@@ -183,7 +192,7 @@ export default function Home() {
               <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                 <div className="absolute inset-0 bg-charcoal/10 z-10 mix-blend-overlay rounded-3xl"></div>
                 <Image 
-                  src="/photos/2021-06-15.jpg" // Provided local photo
+                  src="/photos/a.png"
                   alt="BRC Kalıp Fabrika İçi"
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-700"
@@ -242,19 +251,33 @@ export default function Home() {
             <p className="text-gray-500 mt-4 text-lg">{t('home.refSubtitle')}</p>
           </div>
 
-          {/* Simple CSS-based Marquee for References */}
+          {/* CSS-based Marquee for References */}
           <div className="relative flex overflow-x-hidden group">
-            <div className="py-8 animate-marquee whitespace-nowrap flex items-center gap-16">
-              {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, idx) => (
-                <div key={idx} className="inline-flex w-48 h-24 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-                  <div className="text-2xl font-bold text-gray-400">{t('home.refBrand')} {item}</div>
+            <div className="py-8 animate-marquee whitespace-nowrap flex items-center gap-12">
+              {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
+                <div 
+                  key={idx} 
+                  className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
+                >
+                  <img 
+                    src={logo.src} 
+                    alt={logo.alt} 
+                    className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
+                  />
                 </div>
               ))}
             </div>
-            <div className="absolute top-0 py-8 animate-marquee2 whitespace-nowrap flex items-center gap-16">
-              {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, idx) => (
-                <div key={idx + 'b'} className="inline-flex w-48 h-24 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-                  <div className="text-2xl font-bold text-gray-400">{t('home.refBrand')} {item}</div>
+            <div className="absolute top-0 py-8 animate-marquee2 whitespace-nowrap flex items-center gap-12">
+              {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
+                <div 
+                  key={idx + '-b'} 
+                  className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
+                >
+                  <img 
+                    src={logo.src} 
+                    alt={logo.alt} 
+                    className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
+                  />
                 </div>
               ))}
             </div>

@@ -10,6 +10,7 @@ export default function Plastic() {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
 
+
   const stats = [
     { title: t('plastic.stat1'), value: t('plastic.stat1Val'), subtitle: t('plastic.stat1Sub') },
     { title: t('plastic.stat2'), value: t('plastic.stat2Val'), subtitle: t('plastic.stat2Sub') },
@@ -184,7 +185,7 @@ export default function Plastic() {
               <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                 <div className="absolute inset-0 bg-tealAccent/10 z-10 mix-blend-overlay rounded-3xl"></div>
                 <Image 
-                  src="/photos/2021-06-18.jpg" 
+                  src="/photos/b.png" 
                   alt="4 El Plastik Fabrika"
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-700"
@@ -222,32 +223,7 @@ export default function Plastic() {
         </div>
       </section>
 
-      {/* References Section */}
-      <section className="py-24 bg-lightGray overflow-hidden border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-charcoal">{t('plastic.refTitle')}</h2>
-            <p className="text-gray-500 mt-4 text-lg">{t('plastic.refSubtitle')}</p>
-          </div>
 
-          <div className="relative flex overflow-x-hidden group">
-            <div className="py-8 animate-marquee whitespace-nowrap flex items-center gap-16">
-              {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, idx) => (
-                <div key={idx} className="inline-flex w-48 h-24 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100 hover:-translate-y-1">
-                  <div className="text-xl font-bold text-gray-400">{t('plastic.refPartner')} {item}</div>
-                </div>
-              ))}
-            </div>
-            <div className="absolute top-0 py-8 animate-marquee2 whitespace-nowrap flex items-center gap-16">
-              {[1, 2, 3, 4, 5, 1, 2, 3, 4, 5].map((item, idx) => (
-                <div key={idx + 'b'} className="inline-flex w-48 h-24 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100 hover:-translate-y-1">
-                  <div className="text-xl font-bold text-gray-400">{t('plastic.refPartner')} {item}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
     </>
   );
