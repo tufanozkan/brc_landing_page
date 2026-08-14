@@ -308,35 +308,47 @@ export default function Home() {
             <p className="text-gray-400 mt-4 text-lg">{t('home.refSubtitle')}</p>
           </div>
 
-          {/* CSS-based Marquee for References */}
-          <div className="relative flex overflow-x-hidden group">
-            <div className="py-8 animate-marquee whitespace-nowrap flex items-center gap-12">
-              {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
-                <div 
-                  key={idx} 
-                  className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
-                >
-                  <img 
-                    src={logo.src} 
-                    alt={logo.alt} 
-                    className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="absolute top-0 py-8 animate-marquee2 whitespace-nowrap flex items-center gap-12">
-              {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
-                <div 
-                  key={idx + '-b'} 
-                  className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
-                >
-                  <img 
-                    src={logo.src} 
-                    alt={logo.alt} 
-                    className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
-                  />
-                </div>
-              ))}
+          {/* Seamless Infinite Marquee for References */}
+          <div className="relative w-full overflow-hidden group">
+            {/* Left & Right subtle gradient fade for smooth transitions */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-charcoal to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-charcoal to-transparent z-10" />
+
+            <div 
+              className="flex w-max gap-12 py-8"
+              style={{ '--marquee-gap': '3rem' }}
+            >
+              {/* First Track */}
+              <div className="flex shrink-0 items-center gap-12 animate-marquee group-hover:[animation-play-state:paused]">
+                {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
+                  <div 
+                    key={`track1-${idx}`} 
+                    className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
+                  >
+                    <img 
+                      src={logo.src} 
+                      alt={logo.alt} 
+                      className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Second Track (Seamless Duplicate) */}
+              <div aria-hidden="true" className="flex shrink-0 items-center gap-12 animate-marquee group-hover:[animation-play-state:paused]">
+                {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
+                  <div 
+                    key={`track2-${idx}`} 
+                    className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
+                  >
+                    <img 
+                      src={logo.src} 
+                      alt={logo.alt} 
+                      className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
