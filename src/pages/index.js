@@ -228,27 +228,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Blog/Articles Placeholder */}
-      <section className="py-20 bg-charcoal text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-tealAccent font-semibold tracking-wider uppercase text-sm mb-4 block">{t('home.blogCenter')}</span>
-          <h2 className="text-4xl font-bold mb-12">{t('home.blogTitle')}</h2>
-          <div className="max-w-2xl mx-auto bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-12">
-            <Cog size={48} className="mx-auto text-orangeAccent mb-6 opacity-80" />
-            <h3 className="text-2xl font-semibold mb-4">{t('home.blogStatus')}</h3>
-            <p className="text-gray-400">
-              {t('home.blogDesc')}
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* References Section */}
-      <section className="py-24 bg-white overflow-hidden">
+      <section className="py-24 bg-charcoal text-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-charcoal">{t('home.refTitle')}</h2>
-            <p className="text-gray-500 mt-4 text-lg">{t('home.refSubtitle')}</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-white">{t('home.refTitle')}</h2>
+            <p className="text-gray-400 mt-4 text-lg">{t('home.refSubtitle')}</p>
           </div>
 
           {/* CSS-based Marquee for References */}
@@ -257,7 +242,7 @@ export default function Home() {
               {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
                 <div 
                   key={idx} 
-                  className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
+                  className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
                 >
                   <img 
                     src={logo.src} 
@@ -271,7 +256,7 @@ export default function Home() {
               {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
                 <div 
                   key={idx + '-b'} 
-                  className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
+                  className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
                 >
                   <img 
                     src={logo.src} 
@@ -281,6 +266,21 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog/Articles Placeholder */}
+      <section className="py-20 bg-white text-charcoal">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="text-tealAccent font-semibold tracking-wider uppercase text-sm mb-4 block">{t('home.blogCenter')}</span>
+          <h2 className="text-4xl font-bold mb-12 text-charcoal">{t('home.blogTitle')}</h2>
+          <div className="max-w-2xl mx-auto bg-lightGray border border-gray-200 rounded-2xl p-12 shadow-sm">
+            <Cog size={48} className="mx-auto text-orangeAccent mb-6 opacity-80" />
+            <h3 className="text-2xl font-semibold mb-4 text-charcoal">{t('home.blogStatus')}</h3>
+            <p className="text-gray-600">
+              {t('home.blogDesc')}
+            </p>
           </div>
         </div>
       </section>

@@ -1,2 +1,9 @@
 node_modules/
 .next/
+
+# Large media and presentation files
+BRC_KALIP_4_EL_TANITIM.mp4
+BRC KALIP VE 4 EL PLASTİK TANITIM.pptx
+*.mp4
+*.pptx
+
