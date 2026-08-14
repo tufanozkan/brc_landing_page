@@ -26,11 +26,7 @@ export default function Plastic() {
       </Head>
 
       {/* Hero Section */}
-      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden bg-charcoal">
-        <motion.div 
-          style={{ y: y1 }}
-          className="absolute inset-0 z-0 bg-gradient-to-tr from-[#20272d] via-charcoal to-[#404c5a] opacity-90" 
-        />
+      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden bg-transparent">
         <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1621503792019-33519c2fb418?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-20"></div>
         {/*
           TODO: Add real video here when available:

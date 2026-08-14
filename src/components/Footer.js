@@ -5,7 +5,7 @@ import { useLanguage } from '@/utils/LanguageContext';
 export default function Footer() {
   const { language, t } = useLanguage();
   return (
-    <footer className="bg-charcoal text-white border-t border-charcoal/20">
+    <footer className="bg-charcoal text-white border-t border-charcoal/20 relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           
@@ -96,7 +96,7 @@ export default function Footer() {
       </div>
       
       {/* Bottom Bar */}
-      <div className="border-t border-charcoal/20 bg-[#232a31] py-6">
+      <div className="border-t border-gray-800 bg-charcoal py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm text-gray-500">
             {t('footer.copyright').replace('{year}', new Date().getFullYear())}

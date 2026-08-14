@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Target, Lightbulb, Cog, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { Target, Lightbulb, Cog, ArrowRight, CheckCircle2, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/utils/LanguageContext';
 
@@ -9,6 +10,35 @@ export default function Home() {
   const { language, t } = useLanguage();
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
+  const [showIntro, setShowIntro] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hasSeen = sessionStorage.getItem('hasSeenIntro');
+      if (!hasSeen) {
+        setShowIntro(true);
+      }
+    }
+  }, []);
+
+  const handleCloseIntro = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('hasSeenIntro', 'true');
+    }
+    setShowIntro(false);
+  };
+
+  useEffect(() => {
+    if (showIntro) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showIntro]);
 
   const partnerLogos = [
     { id: 1, src: '/partners/images.png', alt: 'Partner 1' },
@@ -33,14 +63,56 @@ export default function Home() {
         <meta name="description" content={t('home.metaDesc')} />
       </Head>
 
-      {/* Hero Section (Video Placeholder) */}
-      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden bg-charcoal">
-        {/* Placeholder gradient mimicking a video */}
-        <motion.div 
-          style={{ y: y1 }}
-          className="absolute inset-0 z-0 bg-gradient-to-br from-charcoal via-[#404c5a] to-[#20272d] opacity-80" 
-        />
-        <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1565439390118-9fc12c424b83?q=80&w=2669&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-30"></div>
+      {/* Fullscreen Intro Video Overlay */}
+      <AnimatePresence>
+        {showIntro && (
+          <motion.div 
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden"
+          >
+            {/* Video Background */}
+            <video
+              src="/videos/BRC_KALIP_4_EL_TANITIM.mp4"
+              autoPlay
+              muted={isMuted}
+              playsInline
+              onEnded={handleCloseIntro}
+              className="w-full h-full object-cover pointer-events-none"
+            />
+
+            {/* Subtle Gradient at Bottom for Contrast */}
+            <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+
+            {/* Mute / Unmute Button */}
+            <button
+              onClick={() => setIsMuted(!isMuted)}
+              className="absolute top-6 right-6 z-20 p-3 sm:p-4 rounded-full bg-black/50 hover:bg-black/80 text-white border border-white/20 backdrop-blur-md transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2 text-xs sm:text-sm"
+              title={isMuted ? (language === 'tr' ? 'Sesi Aç' : 'Unmute') : (language === 'tr' ? 'Sesi Kapat' : 'Mute')}
+            >
+              {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+              <span className="hidden sm:inline font-medium">{isMuted ? (language === 'tr' ? 'Sesi Aç' : 'Unmute') : (language === 'tr' ? 'Ses Açık' : 'Muted')}</span>
+            </button>
+
+            {/* Glassmorphic "Tanıtımı Geç" Button (Bottom Center) */}
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              onClick={handleCloseIntro}
+              className="absolute bottom-8 sm:bottom-14 left-1/2 transform -translate-x-1/2 z-20 px-8 py-3.5 sm:px-10 sm:py-4 bg-black/60 hover:bg-black/80 text-white font-semibold rounded-full border border-white/30 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 hover:scale-105 hover:border-white/50 active:scale-95 flex items-center gap-3 cursor-pointer text-sm sm:text-base tracking-wide"
+            >
+              <span>{language === 'tr' ? 'Tanıtımı Geç' : 'Skip Intro'}</span>
+              <ArrowRight size={18} />
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Hero Section */}
+      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden bg-transparent">
+        <div className="absolute inset-0 z-0 bg-[url('https://images.unsplash.com/photo-1565439390118-9fc12c424b83?q=80&w=2669&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-20"></div>
         {/*
           TODO: Add real video here when available:
           <video autoPlay loop muted playsInline className="absolute z-0 w-auto min-w-full min-h-full max-w-none object-cover opacity-60">
