@@ -40,11 +40,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Custom Swiper Styles for Reference Slider */
-.swiper-pagination-bullet-active {
-  background-color: #1c2c44 !important;
-}
-
 .glass-panel {
   @apply bg-white/70 backdrop-blur-md shadow-lg border border-white/20;
 }

@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Target, Lightbulb, Cog, ArrowRight, CheckCircle2, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/utils/LanguageContext';
 
 export default function Home() {
   const { language, t } = useLanguage();
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
   const [showIntro, setShowIntro] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
@@ -267,6 +265,7 @@ export default function Home() {
                   src="/photos/a.png"
                   alt="BRC Kalıp Fabrika İçi"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>

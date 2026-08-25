@@ -36,11 +36,15 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-tealAccent shrink-0" size={18} />
-                <span>0507 284 07 98</span>
+                <a href={`tel:${t('footer.phone').replace(/\s/g, '')}`} className="hover:text-white transition-colors">
+                  {t('footer.phone')}
+                </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-tealAccent shrink-0" size={18} />
-                <span>info@brckalip.com.tr</span>
+                <a href={`mailto:${t('footer.email')}`} className="hover:text-white transition-colors">
+                  {t('footer.email')}
+                </a>
               </li>
                <li className="flex items-start gap-3">
                 <Clock className="text-tealAccent shrink-0 mt-0.5" size={18} />

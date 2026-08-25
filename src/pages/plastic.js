@@ -1,14 +1,12 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ShieldCheck, Truck, BarChart3, ArrowRight, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/utils/LanguageContext';
 
 export default function Plastic() {
   const { language, t } = useLanguage();
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
 
 
   const stats = [
@@ -68,7 +66,7 @@ export default function Plastic() {
         </div>
 
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
-          <span className="text-gray-400 text-xs tracking-widest uppercase mb-2">Aşağı Kaydır</span>
+          <span className="text-gray-400 text-xs tracking-widest uppercase mb-2">{t('home.scrollDown')}</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
@@ -184,6 +182,7 @@ export default function Plastic() {
                   src="/photos/b.png" 
                   alt="4 El Plastik Fabrika"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>

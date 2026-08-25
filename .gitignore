@@ -1,6 +1,12 @@
 node_modules/
 .next/
 
+# Environment variables — never commit secrets
+.env
+.env.local
+.env.production
+.env.development
+
 # Large presentation files (>100MB)
 BRC KALIP VE 4 EL PLASTİK TANITIM.pptx
 *.pptx
