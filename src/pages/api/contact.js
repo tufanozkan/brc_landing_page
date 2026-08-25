@@ -145,10 +145,95 @@ function createTransporter() {
   });
 }
 
+// ─── CORS — Origin Validation ──────────────────────────────────────────────
+// Strategy (in priority order):
+//  1. No Origin header → non-browser request (curl / server-to-server).
+//     Allow through; rate limiter is the guard.
+//  2. Same-origin → Origin matches Host header of the current request.
+//     Always allowed; no env var needed for the form to work.
+//  3. Env-var origins → ALLOWED_ORIGIN or NEXT_PUBLIC_SITE_URL.
+//     Use for www-subdomain or other trusted alternate domains.
+//  4. Dev localhost → http://localhost:* and http://127.0.0.1:* in non-production.
+//  5. Everything else → 403 Forbidden.
+//
+// NEVER sets Access-Control-Allow-Origin: * — always an explicit echo of the origin.
+
+function isOriginAllowed(req, requestOrigin) {
+  // 1. No origin header (e.g. server-side fetch, curl)
+  if (!requestOrigin) return true;
+
+  // 2. Same-origin check — derive self-origin from the incoming Host header
+  const host = req.headers['host'];
+  if (host) {
+    // Respect reverse-proxy protocol forwarding (Vercel, Nginx, Cloudflare)
+    const proto =
+      req.headers['x-forwarded-proto'] ||
+      (req.socket?.encrypted ? 'https' : 'http');
+    const selfOrigin = `${proto}://${host}`;
+    if (requestOrigin === selfOrigin) return true;
+  }
+
+  // 3. Env-var defined additional origins (strip trailing slash)
+  const normalise = (s) => (s ? s.trim().replace(/\/$/, '') : '');
+  const envOrigins = new Set(
+    [
+      normalise(process.env.ALLOWED_ORIGIN),
+      normalise(process.env.NEXT_PUBLIC_SITE_URL),
+    ].filter(Boolean)
+  );
+  if (envOrigins.has(requestOrigin)) return true;
+
+  // 4. Development-only: allow any localhost / 127.0.0.1 port
+  if (process.env.NODE_ENV !== 'production') {
+    if (
+      requestOrigin.startsWith('http://localhost:') ||
+      requestOrigin.startsWith('http://127.0.0.1:')
+    ) {
+      return true;
+    }
+  }
+
+  // 5. Everything else is rejected
+  return false;
+}
+
+// Attach explicit (never wildcard) CORS headers for an approved cross-origin request.
+function setCorsHeaders(res, origin) {
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Max-Age', '86400'); // preflight cache: 1 day
+  res.setHeader('Vary', 'Origin');
+}
+
 // ─── Main Handler ──────────────────────────────────────────────────────────
 export default async function handler(req, res) {
+  const requestOrigin = req.headers['origin'] || '';
+  const originAllowed = isOriginAllowed(req, requestOrigin);
+
+  if (!originAllowed) {
+    console.warn(`[CORS] Rejected request from origin: ${requestOrigin}`);
+    return res.status(403).json({
+      success: false,
+      message: 'Forbidden: cross-origin request not allowed.',
+    });
+  }
+
+  // Attach CORS headers only for actual cross-origin requests
+  if (requestOrigin && originAllowed) {
+    setCorsHeaders(res, requestOrigin);
+  }
+
+
+  // ── Handle OPTIONS preflight ──────────────────────────────────────────────
+  // Browsers send OPTIONS before a cross-origin POST with Content-Type: application/json.
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  // ── Allow POST only ───────────────────────────────────────────────────────
   if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
+    res.setHeader('Allow', 'POST, OPTIONS');
     return res.status(405).json({ success: false, message: 'Method Not Allowed' });
   }
 
@@ -199,7 +284,7 @@ export default async function handler(req, res) {
   try {
     const transporter = createTransporter();
 
-    const toEmail   = process.env.CONTACT_TO_EMAIL || 'bilgi@brckalip.com.tr';
+    const toEmail   = process.env.CONTACT_TO_EMAIL || 'info@brckalip.com.tr';
     const fromName  = process.env.CONTACT_FROM_NAME || 'BRC Kalip Website';
     const fromEmail = process.env.SMTP_USER;
 
@@ -233,3 +318,4 @@ export default async function handler(req, res) {
     });
   }
 }
+
