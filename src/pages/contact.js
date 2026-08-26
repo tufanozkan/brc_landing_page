@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/utils/LanguageContext';
@@ -56,6 +57,7 @@ export default function Contact() {
   const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
   const [errorMsg, setErrorMsg] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
+  const [kvkkConsent, setKvkkConsent] = useState(false);
 
   // ── Controlled input handler
   const handleChange = (e) => {
@@ -73,6 +75,8 @@ export default function Contact() {
       return 'Konu en az 2 karakter olmalıdır.';
     if (!formData.message.trim() || formData.message.trim().length < 10)
       return 'Mesaj en az 10 karakter olmalıdır.';
+    if (!kvkkConsent)
+      return t('contact.kvkkError');
     return null;
   };
 
@@ -124,6 +128,7 @@ export default function Contact() {
     setStatus('idle');
     setErrorMsg('');
     setFormData(EMPTY_FORM);
+    setKvkkConsent(false);
   };
 
   const inputClass =
@@ -305,6 +310,32 @@ export default function Contact() {
 
                     {/* ── Turnstile CAPTCHA (optional) ── */}
                     <TurnstileWidget onVerify={setTurnstileToken} />
+
+                    {/* ── KVKK Consent Checkbox ── */}
+                    <div className="flex items-start gap-3 pt-2">
+                      <input
+                        type="checkbox"
+                        id="kvkkConsent"
+                        name="kvkkConsent"
+                        checked={kvkkConsent}
+                        onChange={(e) => setKvkkConsent(e.target.checked)}
+                        disabled={isDisabled}
+                        className="mt-1 h-4 w-4 rounded border-gray-300 text-tealAccent focus:ring-tealAccent cursor-pointer disabled:cursor-not-allowed shrink-0"
+                      />
+                      <label htmlFor="kvkkConsent" className="text-sm text-gray-600 leading-relaxed cursor-pointer">
+                        {t('contact.kvkkConsent')}{' '}
+                        <Link
+                          href="/kvkk"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-tealAccent hover:underline font-medium"
+                        >
+                          {t('contact.kvkkConsentLink')}
+                        </Link>
+                        {' '}{t('contact.kvkkConsentSuffix')}
+                        {' '}<span className="text-red-500">*</span>
+                      </label>
+                    </div>
 
                     {/* ── Error message ── */}
                     <AnimatePresence>

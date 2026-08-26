@@ -75,6 +75,16 @@ export default function Footer() {
                   <ArrowRight size={14} className="text-tealAccent" /> {t('footer.linkContact')}
                 </Link>
               </li>
+              <li>
+                <Link href="/kvkk" className="hover:text-orangeAccent transition-colors flex items-center gap-2">
+                  <ArrowRight size={14} className="text-tealAccent" /> {t('footer.linkKvkk')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/gizlilik" className="hover:text-orangeAccent transition-colors flex items-center gap-2">
+                  <ArrowRight size={14} className="text-tealAccent" /> {t('footer.linkPrivacy')}
+                </Link>
+              </li>
             </ul>
           </div>
 
