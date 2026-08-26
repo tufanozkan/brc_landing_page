@@ -22,6 +22,7 @@ export default function Plastic() {
         <title>{t('plastic.metaTitle')}</title>
         <meta name="description" content={t('plastic.metaDesc')} />
         <link rel="canonical" href="https://www.brckalip.com.tr/plastic" />
+        <link rel="preload" as="image" href="https://images.unsplash.com/photo-1621503792019-33519c2fb418?q=80&w=2670&auto=format&fit=crop" />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />

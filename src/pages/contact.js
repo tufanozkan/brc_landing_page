@@ -197,7 +197,7 @@ export default function Contact() {
                 "latitude": "38.6000",
                 "longitude": "27.4167"
               },
-              "hasMap": "https://maps.google.com/maps?q=Evrenos,+K%C3%9CME+EVLER%C4%B0+NO+78,+45140+Yunusemre%2FManisa"
+              "hasMap": "https://maps.google.com/maps?q=BRC+KALIP%2C+Evrenos%2C+K%C3%9CME+EVLER%C4%B0+NO+78%2C+45140+Yunusemre%2FManisa%2C+T%C3%BCrkiye"
             })
           }}
         />
@@ -456,7 +456,7 @@ export default function Contact() {
                       <div>
                         <p className="text-sm font-bold text-charcoal mb-1">{t('contact.sidebarAddress')}</p>
                         <p className="text-gray-600 text-sm leading-relaxed">
-                          <a href="https://maps.google.com/?q=Evrenos,+K%C3%9CME+EVLER%C4%B0+NO+78,+45140+Yunusemre%2FManisa" target="_blank" rel="noopener noreferrer" className="hover:text-tealAccent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent rounded-sm block">
+                          <a href="https://maps.google.com/?q=BRC+KALIP%2C+Evrenos%2C+K%C3%9CME+EVLER%C4%B0+NO+78%2C+45140+Yunusemre%2FManisa%2C+T%C3%BCrkiye" target="_blank" rel="noopener noreferrer" className="hover:text-tealAccent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent rounded-sm block">
                             Evrenos, KÜME EVLERİ NO 78,<br />45140 Yunusemre/Manisa
                           </a>
                         </p>
@@ -545,7 +545,7 @@ export default function Contact() {
         ) : (
           /* ── Loaded iframe (only after consent) ── */
           <iframe
-            src="https://maps.google.com/maps?q=Evrenos%2C%20K%C3%9CME%20EVLER%C4%B0%20NO%2078%2C%2045140%20Yunusemre%2FManisa&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=BRC+KALIP%2C+Evrenos%2C+K%C3%9CME+EVLER%C4%B0+NO+78%2C+45140+Yunusemre%2FManisa%2C+T%C3%BCrkiye&t=&z=15&ie=UTF8&iwloc=&output=embed"
             title="BRC KALIP & 4 EL PLASTİK — Fabrika Konumu (Google Maps)"
             width="100%"
             height="100%"

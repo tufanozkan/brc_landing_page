@@ -32,7 +32,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-gray-400">
               <li className="flex items-start gap-3">
                 <MapPin className="text-tealAccent shrink-0 mt-0.5" size={18} aria-hidden="true" />
-                <a href="https://maps.google.com/?q=Evrenos,+K%C3%9CME+EVLER%C4%B0+NO+78,+45140+Yunusemre%2FManisa" target="_blank" rel="noopener noreferrer" className="whitespace-pre-line hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
+                <a href="https://maps.google.com/?q=BRC+KALIP%2C+Evrenos%2C+K%C3%9CME+EVLER%C4%B0+NO+78%2C+45140+Yunusemre%2FManisa%2C+T%C3%BCrkiye" target="_blank" rel="noopener noreferrer" className="whitespace-pre-line hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
                   {t('footer.address')}
                 </a>
               </li>

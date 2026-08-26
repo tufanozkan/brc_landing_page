@@ -60,6 +60,7 @@ export default function Home() {
         <title>{t('home.metaTitle')}</title>
         <meta name="description" content={t('home.metaDesc')} />
         <link rel="canonical" href="https://www.brckalip.com.tr/" />
+        <link rel="preload" as="image" href="https://images.unsplash.com/photo-1565439390118-9fc12c424b83?q=80&w=2669&auto=format&fit=crop" />
 
         {/* Open Graph */}
         <meta property="og:type" content="website" />
@@ -139,6 +140,7 @@ export default function Home() {
               muted={isMuted}
               playsInline
               onEnded={handleCloseIntro}
+              onError={handleCloseIntro}
               className="w-full h-full object-cover pointer-events-none"
             />
 

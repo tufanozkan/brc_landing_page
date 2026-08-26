@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { useLanguage } from '@/utils/LanguageContext';
@@ -94,12 +94,13 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu Dropdown */}
+      <AnimatePresence>
       {isMobileMenuOpen && (
         <motion.div 
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-white border-t border-gray-100"
+          className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
         >
           <div className="px-4 pt-2 pb-6 space-y-1">
             {links.map((link) => (
@@ -115,6 +116,7 @@ export default function Navbar() {
           </div>
         </motion.div>
       )}
+      </AnimatePresence>
     </motion.nav>
   );
 }
