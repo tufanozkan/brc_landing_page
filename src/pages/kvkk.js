@@ -114,7 +114,10 @@ export default function KvkkPage() {
               </a>
             </li>
             <li>
-              <strong>{t('kvkk.s7ContactAddress')}</strong> {t('kvkk.s7ContactAddressVal')}
+              <strong>{t('kvkk.s7ContactAddress')}</strong>{' '}
+              <a href="https://maps.google.com/?q=Evrenos,+K%C3%9CME+EVLER%C4%B0+NO+78,+45140+Yunusemre%2FManisa" target="_blank" rel="noopener noreferrer" className="text-tealAccent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent rounded-sm">
+                {t('kvkk.s7ContactAddressVal')}
+              </a>
             </li>
           </ul>
           <p className="text-sm text-gray-500 italic pt-1">{t('kvkk.s7Note')}</p>
@@ -157,7 +160,7 @@ export default function KvkkPage() {
             className="flex flex-col items-center gap-4"
           >
             <div className="w-16 h-16 rounded-full bg-tealAccent/20 flex items-center justify-center">
-              <ShieldCheck size={32} className="text-tealAccent" />
+              <ShieldCheck size={32} className="text-tealAccent" aria-hidden="true" />
             </div>
             <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
               {t('kvkk.headerTitle')}
@@ -173,10 +176,10 @@ export default function KvkkPage() {
       <div className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav className="flex items-center gap-1 text-sm text-gray-500">
-            <Link href="/" className="hover:text-tealAccent transition-colors">
+            <Link href="/" className="hover:text-tealAccent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent rounded-sm">
               {t('kvkk.breadcrumbHome')}
             </Link>
-            <ChevronRight size={14} className="text-gray-400" />
+            <ChevronRight size={14} className="text-gray-400" aria-hidden="true" />
             <span className="text-charcoal font-medium">{t('kvkk.breadcrumbCurrent')}</span>
           </nav>
         </div>
@@ -220,13 +223,13 @@ export default function KvkkPage() {
             <div className="mt-10 flex flex-col sm:flex-row items-center gap-4 pt-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-8 py-3 bg-orangeAccent hover:bg-orangeAccent/90 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 gap-2"
+                className="inline-flex items-center justify-center px-8 py-3 bg-orangeAccent hover:bg-orangeAccent/90 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent"
               >
                 {t('kvkk.ctaContact')}
               </Link>
               <Link
                 href="/gizlilik"
-                className="inline-flex items-center justify-center px-8 py-3 border-2 border-tealAccent text-tealAccent font-semibold rounded-lg hover:bg-tealAccent hover:text-white transition-all duration-300 gap-2"
+                className="inline-flex items-center justify-center px-8 py-3 border-2 border-tealAccent text-tealAccent font-semibold rounded-lg hover:bg-tealAccent hover:text-white transition-all duration-300 gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent"
               >
                 {t('kvkk.ctaPrivacy')}
               </Link>

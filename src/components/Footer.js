@@ -31,23 +31,25 @@ export default function Footer() {
             </h4>
             <ul className="space-y-4 text-sm text-gray-400">
               <li className="flex items-start gap-3">
-                <MapPin className="text-tealAccent shrink-0 mt-0.5" size={18} />
-                <span className="whitespace-pre-line">{t('footer.address')}</span>
+                <MapPin className="text-tealAccent shrink-0 mt-0.5" size={18} aria-hidden="true" />
+                <a href="https://maps.google.com/?q=Evrenos,+K%C3%9CME+EVLER%C4%B0+NO+78,+45140+Yunusemre%2FManisa" target="_blank" rel="noopener noreferrer" className="whitespace-pre-line hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
+                  {t('footer.address')}
+                </a>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="text-tealAccent shrink-0" size={18} />
-                <a href={`tel:${t('footer.phone').replace(/\s/g, '')}`} className="hover:text-white transition-colors">
+                <Phone className="text-tealAccent shrink-0" size={18} aria-hidden="true" />
+                <a href={`tel:${t('footer.phone').replace(/\s/g, '')}`} className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
                   {t('footer.phone')}
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="text-tealAccent shrink-0" size={18} />
-                <a href={`mailto:${t('footer.email')}`} className="hover:text-white transition-colors">
+                <Mail className="text-tealAccent shrink-0" size={18} aria-hidden="true" />
+                <a href={`mailto:${t('footer.email')}`} className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
                   {t('footer.email')}
                 </a>
               </li>
                <li className="flex items-start gap-3">
-                <Clock className="text-tealAccent shrink-0 mt-0.5" size={18} />
+                <Clock className="text-tealAccent shrink-0 mt-0.5" size={18} aria-hidden="true" />
                 <span>{t('footer.workDays')}</span>
               </li>
             </ul>
@@ -61,28 +63,28 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-sm text-gray-400">
               <li>
-                <Link href="/" className="hover:text-orangeAccent transition-colors flex items-center gap-2">
-                  <ArrowRight size={14} className="text-tealAccent" /> {t('footer.linkHome')}
+                <Link href="/" className="hover:text-orangeAccent transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
+                  <ArrowRight size={14} className="text-tealAccent" aria-hidden="true" /> {t('footer.linkHome')}
                 </Link>
               </li>
               <li>
-                <Link href="/plastic" className="hover:text-orangeAccent transition-colors flex items-center gap-2">
-                  <ArrowRight size={14} className="text-tealAccent" /> {t('footer.linkPlastic')}
+                <Link href="/plastic" className="hover:text-orangeAccent transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
+                  <ArrowRight size={14} className="text-tealAccent" aria-hidden="true" /> {t('footer.linkPlastic')}
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-orangeAccent transition-colors flex items-center gap-2">
-                  <ArrowRight size={14} className="text-tealAccent" /> {t('footer.linkContact')}
+                <Link href="/contact" className="hover:text-orangeAccent transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
+                  <ArrowRight size={14} className="text-tealAccent" aria-hidden="true" /> {t('footer.linkContact')}
                 </Link>
               </li>
               <li>
-                <Link href="/kvkk" className="hover:text-orangeAccent transition-colors flex items-center gap-2">
-                  <ArrowRight size={14} className="text-tealAccent" /> {t('footer.linkKvkk')}
+                <Link href="/kvkk" className="hover:text-orangeAccent transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
+                  <ArrowRight size={14} className="text-tealAccent" aria-hidden="true" /> {t('footer.linkKvkk')}
                 </Link>
               </li>
               <li>
-                <Link href="/gizlilik" className="hover:text-orangeAccent transition-colors flex items-center gap-2">
-                  <ArrowRight size={14} className="text-tealAccent" /> {t('footer.linkPrivacy')}
+                <Link href="/gizlilik" className="hover:text-orangeAccent transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
+                  <ArrowRight size={14} className="text-tealAccent" aria-hidden="true" /> {t('footer.linkPrivacy')}
                 </Link>
               </li>
             </ul>
@@ -99,9 +101,9 @@ export default function Footer() {
             </p>
             <a 
               href="/contact" 
-              className="inline-flex items-center justify-center w-full px-6 py-3 bg-orangeAccent hover:bg-orangeAccent/90 text-white font-medium rounded-lg shadow-lg hover:shadow-orange-500/10 transition-all duration-300 gap-2"
+              className="inline-flex items-center justify-center w-full px-6 py-3 bg-orangeAccent hover:bg-orangeAccent/90 text-white font-medium rounded-lg shadow-lg hover:shadow-orange-500/10 transition-all duration-300 gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
-              <MapPin size={18} />
+              <MapPin size={18} aria-hidden="true" />
               {t('footer.directionsButton')}
             </a>
           </div>

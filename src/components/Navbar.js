@@ -51,7 +51,7 @@ export default function Navbar() {
               {links.map((link) => {
                 const isActive = router.pathname === link.path;
                 return (
-                  <Link key={link.path} href={link.path} className="relative px-3 py-2 text-sm font-semibold transition-colors text-charcoal hover:text-tealAccent">
+                  <Link key={link.path} href={link.path} className="relative px-3 py-2 text-sm font-semibold transition-colors text-charcoal hover:text-tealAccent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md">
                     {link.name}
                     {isActive && (
                       <motion.div
@@ -68,13 +68,14 @@ export default function Navbar() {
 
             {/* Right Icons */}
             <div className="flex items-center border-l border-gray-300 pl-6">
-              <div 
+              <button 
                 onClick={() => setLanguage(language === 'tr' ? 'en' : 'tr')}
-                className="flex items-center gap-1 text-charcoal/60 hover:text-charcoal cursor-pointer transition-colors select-none"
+                aria-label={language === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}
+                className="flex items-center gap-1 text-charcoal/60 hover:text-charcoal cursor-pointer transition-colors select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md p-1"
               >
-                <Globe size={20} />
+                <Globe size={20} aria-hidden="true" />
                 <span className="text-sm font-bold uppercase">{language}</span>
-              </div>
+              </button>
             </div>
           </div>
 
@@ -82,9 +83,11 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-charcoal/80 hover:text-charcoal"
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? "Menüyü Kapat" : "Menüyü Aç"}
+              className="text-charcoal/80 hover:text-charcoal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md p-1"
             >
-              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              {isMobileMenuOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -104,7 +107,7 @@ export default function Navbar() {
                 key={link.path} 
                 href={link.path} 
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block px-3 py-4 text-base font-medium border-b border-lightGray ${router.pathname === link.path ? 'text-orangeAccent' : 'text-charcoal/85'}`}
+                className={`block px-3 py-4 text-base font-medium border-b border-lightGray focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent rounded-md ${router.pathname === link.path ? 'text-orangeAccent' : 'text-charcoal/85'}`}
               >
                 {link.name}
               </Link>

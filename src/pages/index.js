@@ -148,10 +148,10 @@ export default function Home() {
             {/* Mute / Unmute Button */}
             <button
               onClick={() => setIsMuted(!isMuted)}
-              className="absolute top-6 right-6 z-20 p-3 sm:p-4 rounded-full bg-black/50 hover:bg-black/80 text-white border border-white/20 backdrop-blur-md transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2 text-xs sm:text-sm"
+              className="absolute top-6 right-6 z-20 p-3 sm:p-4 rounded-full bg-black/50 hover:bg-black/80 text-white border border-white/20 backdrop-blur-md transition-all shadow-xl hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2 text-xs sm:text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               title={isMuted ? (language === 'tr' ? 'Sesi Aç' : 'Unmute') : (language === 'tr' ? 'Sesi Kapat' : 'Mute')}
             >
-              {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+              {isMuted ? <VolumeX size={20} aria-hidden="true" /> : <Volume2 size={20} aria-hidden="true" />}
               <span className="hidden sm:inline font-medium">{isMuted ? (language === 'tr' ? 'Sesi Aç' : 'Unmute') : (language === 'tr' ? 'Ses Açık' : 'Muted')}</span>
             </button>
 
@@ -161,10 +161,10 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
               onClick={handleCloseIntro}
-              className="absolute bottom-8 sm:bottom-14 left-1/2 transform -translate-x-1/2 z-20 px-8 py-3.5 sm:px-10 sm:py-4 bg-black/60 hover:bg-black/80 text-white font-semibold rounded-full border border-white/30 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 hover:scale-105 hover:border-white/50 active:scale-95 flex items-center gap-3 cursor-pointer text-sm sm:text-base tracking-wide"
+              className="absolute bottom-8 sm:bottom-14 left-1/2 transform -translate-x-1/2 z-20 px-8 py-3.5 sm:px-10 sm:py-4 bg-black/60 hover:bg-black/80 text-white font-semibold rounded-full border border-white/30 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 hover:scale-105 hover:border-white/50 active:scale-95 flex items-center gap-3 cursor-pointer text-sm sm:text-base tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               <span>{language === 'tr' ? 'Tanıtımı Geç' : 'Skip Intro'}</span>
-              <ArrowRight size={18} />
+              <ArrowRight size={18} aria-hidden="true" />
             </motion.button>
           </motion.div>
         )}
@@ -213,10 +213,10 @@ export default function Home() {
             >
               <Link
                 href="#hakkimizda"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-orangeAccent hover:bg-orangeAccent/90 text-white font-bold rounded-full shadow-lg hover:shadow-orange-500/30 transition-all duration-300"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-orangeAccent hover:bg-orangeAccent/90 text-white font-bold rounded-full shadow-lg hover:shadow-orange-500/30 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent"
               >
                 {t('home.heroButton')}
-                <ArrowRight size={20} />
+                <ArrowRight size={20} aria-hidden="true" />
               </Link>
             </motion.div>
           </div>
@@ -267,7 +267,7 @@ export default function Home() {
                 <h3 className="text-gray-500 font-medium mb-2 uppercase tracking-wide text-xs">{stat.title}</h3>
                 <p className="text-3xl font-extrabold text-charcoal mb-3 group-hover:text-orangeAccent transition-colors">{stat.value}</p>
                 <div className="flex items-center gap-2 text-sm text-gray-600 font-medium">
-                  <CheckCircle2 size={16} className="text-green-500" />
+                  <CheckCircle2 size={16} className="text-green-500" aria-hidden="true" />
                   {stat.subtitle}
                 </div>
               </motion.div>
@@ -287,7 +287,7 @@ export default function Home() {
               className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
             >
               <div className="w-16 h-16 rounded-2xl bg-tealAccent/10 flex items-center justify-center text-tealAccent mb-6">
-                <Target size={32} />
+                <Target size={32} aria-hidden="true" />
               </div>
               <h3 className="text-2xl font-bold text-charcoal mb-4">{t('home.mission')}</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -303,7 +303,7 @@ export default function Home() {
               className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
             >
               <div className="w-16 h-16 rounded-2xl bg-orangeAccent/10 flex items-center justify-center text-orangeAccent mb-6">
-                <Lightbulb size={32} />
+                <Lightbulb size={32} aria-hidden="true" />
               </div>
               <h3 className="text-2xl font-bold text-charcoal mb-4">{t('home.vision')}</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -319,7 +319,7 @@ export default function Home() {
               className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
             >
               <div className="w-16 h-16 rounded-2xl bg-tealAccent/10 flex items-center justify-center text-tealAccent mb-6">
-                <Cog size={32} />
+                <Cog size={32} aria-hidden="true" />
               </div>
               <h3 className="text-2xl font-bold text-charcoal mb-4">{t('home.expertise')}</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -441,7 +441,7 @@ export default function Home() {
           <span className="text-tealAccent font-semibold tracking-wider uppercase text-sm mb-4 block">{t('home.blogCenter')}</span>
           <h2 className="text-4xl font-bold mb-12 text-charcoal">{t('home.blogTitle')}</h2>
           <div className="max-w-2xl mx-auto bg-lightGray border border-gray-200 rounded-2xl p-12 shadow-sm">
-            <Cog size={48} className="mx-auto text-orangeAccent mb-6 opacity-80" />
+            <Cog size={48} className="mx-auto text-orangeAccent mb-6 opacity-80" aria-hidden="true" />
             <h3 className="text-2xl font-semibold mb-4 text-charcoal">{t('home.blogStatus')}</h3>
             <p className="text-gray-600">
               {t('home.blogDesc')}

@@ -251,7 +251,7 @@ export default function Contact() {
                     className="flex flex-col items-center justify-center text-center py-12 gap-6"
                   >
                     <div className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center">
-                      <CheckCircle2 size={40} className="text-green-500" />
+                      <CheckCircle2 size={40} className="text-green-500" aria-hidden="true" />
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-charcoal mb-2">
@@ -261,7 +261,7 @@ export default function Contact() {
                     </div>
                     <button
                       onClick={handleReset}
-                      className="px-8 py-3 border-2 border-tealAccent text-tealAccent font-semibold rounded-lg hover:bg-tealAccent hover:text-white transition-all duration-300"
+                      className="px-8 py-3 border-2 border-tealAccent text-tealAccent font-semibold rounded-lg hover:bg-tealAccent hover:text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent"
                     >
                       {t('contact.successButton')}
                     </button>
@@ -388,7 +388,7 @@ export default function Contact() {
                           href="/kvkk"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-tealAccent hover:underline font-medium"
+                          className="text-tealAccent hover:underline font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent rounded-sm"
                         >
                           {t('contact.kvkkConsentLink')}
                         </Link>
@@ -408,7 +408,7 @@ export default function Contact() {
                           className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm"
                           role="alert"
                         >
-                          <AlertCircle size={18} className="shrink-0 mt-0.5" />
+                          <AlertCircle size={18} className="shrink-0 mt-0.5" aria-hidden="true" />
                           <span>{errorMsg}</span>
                         </motion.div>
                       )}
@@ -418,16 +418,16 @@ export default function Contact() {
                     <button
                       type="submit"
                       disabled={isDisabled}
-                      className="w-full sm:w-auto px-8 py-4 bg-orangeAccent hover:bg-orangeAccent/90 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold rounded-lg shadow-lg hover:shadow-orange-500/20 transition-all duration-300 flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto px-8 py-4 bg-orangeAccent hover:bg-orangeAccent/90 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold rounded-lg shadow-lg hover:shadow-orange-500/20 transition-all duration-300 flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent"
                     >
                       {status === 'loading' ? (
                         <>
-                          <Loader2 size={18} className="animate-spin" />
+                          <Loader2 size={18} className="animate-spin" aria-hidden="true" />
                           {t('contact.formSending')}
                         </>
                       ) : (
                         <>
-                          <Send size={18} />
+                          <Send size={18} aria-hidden="true" />
                           {t('contact.formButton')}
                         </>
                       )}
@@ -451,23 +451,25 @@ export default function Contact() {
                   <ul className="space-y-6">
                     <li className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0 border border-gray-100">
-                        <MapPin size={20} className="text-tealAccent" />
+                        <MapPin size={20} className="text-tealAccent" aria-hidden="true" />
                       </div>
                       <div>
                         <p className="text-sm font-bold text-charcoal mb-1">{t('contact.sidebarAddress')}</p>
                         <p className="text-gray-600 text-sm leading-relaxed">
-                          Evrenos, KÜME EVLERİ NO 78,<br />45140 Yunusemre/Manisa
+                          <a href="https://maps.google.com/?q=Evrenos,+K%C3%9CME+EVLER%C4%B0+NO+78,+45140+Yunusemre%2FManisa" target="_blank" rel="noopener noreferrer" className="hover:text-tealAccent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent rounded-sm block">
+                            Evrenos, KÜME EVLERİ NO 78,<br />45140 Yunusemre/Manisa
+                          </a>
                         </p>
                       </div>
                     </li>
                     <li className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0 border border-gray-100">
-                        <Phone size={20} className="text-tealAccent" />
+                        <Phone size={20} className="text-tealAccent" aria-hidden="true" />
                       </div>
                       <div>
                         <p className="text-sm font-bold text-charcoal mb-1">{t('contact.sidebarPhone')}</p>
                         <p className="text-gray-600 text-sm">
-                          <a href="tel:+905072840798" className="hover:text-tealAccent transition-colors">
+                          <a href="tel:+905072840798" className="hover:text-tealAccent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent rounded-sm">
                             0507 284 07 98
                           </a>
                         </p>
@@ -475,12 +477,12 @@ export default function Contact() {
                     </li>
                     <li className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm shrink-0 border border-gray-100">
-                        <Mail size={20} className="text-tealAccent" />
+                        <Mail size={20} className="text-tealAccent" aria-hidden="true" />
                       </div>
                       <div>
                         <p className="text-sm font-bold text-charcoal mb-1">{t('contact.sidebarEmail')}</p>
                         <p className="text-gray-600 text-sm">
-                          <a href="mailto:bilgi@brckalip.com.tr" className="hover:text-tealAccent transition-colors">
+                          <a href="mailto:bilgi@brckalip.com.tr" className="hover:text-tealAccent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tealAccent rounded-sm">
                             bilgi@brckalip.com.tr
                           </a>
                         </p>
@@ -495,7 +497,7 @@ export default function Contact() {
                 <div className="absolute top-0 left-0 w-32 h-32 bg-[#404c5a]/40 rounded-br-full z-0"></div>
                 <div className="relative z-10 flex flex-col items-center text-center">
                   <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-4">
-                    <Clock size={24} className="text-tealAccent" />
+                    <Clock size={24} className="text-tealAccent" aria-hidden="true" />
                   </div>
                   <h3 className="text-xl font-bold mb-2">{t('contact.hoursTitle')}</h3>
                   <p className="text-gray-300 text-sm">{t('contact.hoursSubtitle')}</p>

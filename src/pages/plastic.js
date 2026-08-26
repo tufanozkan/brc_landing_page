@@ -120,10 +120,10 @@ export default function Plastic() {
             >
               <Link
                 href="#hakkimizda"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-orangeAccent hover:bg-orangeAccent/90 text-white font-bold rounded-full shadow-lg hover:shadow-orange-500/30 transition-all duration-300"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-orangeAccent hover:bg-orangeAccent/90 text-white font-bold rounded-full shadow-lg hover:shadow-orange-500/30 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orangeAccent"
               >
                 {t('plastic.heroButton')}
-                <ArrowRight size={20} />
+                <ArrowRight size={20} aria-hidden="true" />
               </Link>
             </motion.div>
           </div>
@@ -174,7 +174,7 @@ export default function Plastic() {
                 <h3 className="text-gray-500 font-medium mb-2 uppercase tracking-wide text-xs">{stat.title}</h3>
                 <p className="text-3xl font-extrabold text-charcoal mb-3 group-hover:text-tealAccent transition-colors">{stat.value}</p>
                 <div className="flex items-center gap-2 text-sm text-gray-600 font-medium">
-                  <CheckCircle2 size={16} className="text-tealAccent" />
+                  <CheckCircle2 size={16} className="text-tealAccent" aria-hidden="true" />
                   {stat.subtitle}
                 </div>
               </motion.div>
@@ -194,7 +194,7 @@ export default function Plastic() {
               className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 hover:shadow-teal-100 transition-shadow"
             >
               <div className="w-16 h-16 rounded-2xl bg-tealAccent/10 flex items-center justify-center text-tealAccent mb-6">
-                <ShieldCheck size={32} />
+                <ShieldCheck size={32} aria-hidden="true" />
               </div>
               <h3 className="text-2xl font-bold text-charcoal mb-4">{t('plastic.quality')}</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -210,7 +210,7 @@ export default function Plastic() {
               className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 hover:shadow-teal-100 transition-shadow"
             >
               <div className="w-16 h-16 rounded-2xl bg-orangeAccent/10 flex items-center justify-center text-orangeAccent mb-6">
-                <BarChart3 size={32} />
+                <BarChart3 size={32} aria-hidden="true" />
               </div>
               <h3 className="text-2xl font-bold text-charcoal mb-4">{t('plastic.vision')}</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -226,7 +226,7 @@ export default function Plastic() {
               className="bg-white p-10 rounded-2xl shadow-sm border border-gray-100 hover:shadow-teal-100 transition-shadow"
             >
               <div className="w-16 h-16 rounded-2xl bg-tealAccent/10 flex items-center justify-center text-tealAccent mb-6">
-                <Truck size={32} />
+                <Truck size={32} aria-hidden="true" />
               </div>
               <h3 className="text-2xl font-bold text-charcoal mb-4">{t('plastic.logistics')}</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -279,9 +279,9 @@ export default function Plastic() {
                 </p>
                 <div className="p-6 bg-lightGray rounded-xl border border-gray-200 mt-8">
                   <ul className="space-y-3 font-medium text-gray-700">
-                    <li className="flex items-center gap-3"><CheckCircle2 className="text-orangeAccent" size={20} /> {t('plastic.aboutList1')}</li>
-                    <li className="flex items-center gap-3"><CheckCircle2 className="text-orangeAccent" size={20} /> {t('plastic.aboutList2')}</li>
-                    <li className="flex items-center gap-3"><CheckCircle2 className="text-orangeAccent" size={20} /> {t('plastic.aboutList3')}</li>
+                    <li className="flex items-center gap-3"><CheckCircle2 className="text-orangeAccent" size={20} aria-hidden="true" /> {t('plastic.aboutList1')}</li>
+                    <li className="flex items-center gap-3"><CheckCircle2 className="text-orangeAccent" size={20} aria-hidden="true" /> {t('plastic.aboutList2')}</li>
+                    <li className="flex items-center gap-3"><CheckCircle2 className="text-orangeAccent" size={20} aria-hidden="true" /> {t('plastic.aboutList3')}</li>
                   </ul>
                 </div>
               </div>

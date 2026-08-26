@@ -49,8 +49,8 @@ const ContentSecurityPolicy = [
   "frame-ancestors 'none'",
 
   // Upgrade any accidental http:// sub-resource requests to https://
-  "upgrade-insecure-requests",
-].join('; ');
+  process.env.NODE_ENV === 'production' ? "upgrade-insecure-requests" : "",
+].filter(Boolean).join('; ');
 
 const securityHeaders = [
   // ── CSP ─────────────────────────────────────────────────────────────────
@@ -61,10 +61,10 @@ const securityHeaders = [
 
   // ── Transport Security (HSTS) ────────────────────────────────────────────
   // 2 years, including subdomains, eligible for browser preload lists.
-  {
+  ...(process.env.NODE_ENV === 'production' ? [{
     key: 'Strict-Transport-Security',
     value: 'max-age=63072000; includeSubDomains; preload',
-  },
+  }] : []),
 
   // ── MIME Sniffing ────────────────────────────────────────────────────────
   // Prevents browsers from guessing content types (e.g. text/plain → script).
