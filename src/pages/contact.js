@@ -58,6 +58,7 @@ export default function Contact() {
   const [errorMsg, setErrorMsg] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
   const [kvkkConsent, setKvkkConsent] = useState(false);
+  const [mapConsent, setMapConsent] = useState(false);
 
   // ── Controlled input handler
   const handleChange = (e) => {
@@ -449,19 +450,52 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Map Embed Section */}
-      <section className="h-[500px] w-full bg-gray-200 grayscale hover:grayscale-0 transition-all duration-700">
-        <iframe
-          src="https://maps.google.com/maps?q=Evrenos%2C%20K%C3%9CME%20EVLER%C4%B0%20NO%2078%2C%2045140%20Yunusemre%2FManisa&t=&z=15&ie=UTF8&iwloc=&output=embed"
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen=""
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          aria-hidden="false"
-          tabIndex="0"
-        />
+      {/* Map Embed Section — privacy-first, loads only on user consent */}
+      <section className="h-[500px] w-full relative bg-gray-100 overflow-hidden">
+        {!mapConsent ? (
+          /* ── Pre-consent notice ── */
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-6 text-center bg-lightGray">
+            {/* Decorative map pin */}
+            <div className="w-16 h-16 rounded-full bg-charcoal/10 flex items-center justify-center">
+              <MapPin size={32} className="text-tealAccent" />
+            </div>
+
+            <div className="max-w-md space-y-2">
+              <h3 className="text-lg font-bold text-charcoal">
+                {t('contact.mapConsentTitle')}
+              </h3>
+              <p className="text-sm text-gray-500 leading-relaxed">
+                {t('contact.mapConsentDesc')}
+              </p>
+            </div>
+
+            <button
+              onClick={() => setMapConsent(true)}
+              className="inline-flex items-center gap-2 px-8 py-3 bg-tealAccent hover:bg-tealAccent/90 text-white font-semibold rounded-lg shadow-lg transition-all duration-300"
+            >
+              <MapPin size={18} />
+              {t('contact.mapConsentButton')}
+            </button>
+
+            <p className="text-xs text-gray-400 max-w-sm">
+              {t('contact.mapConsentNote')}
+            </p>
+          </div>
+        ) : (
+          /* ── Loaded iframe (only after consent) ── */
+          <iframe
+            src="https://maps.google.com/maps?q=Evrenos%2C%20K%C3%9CME%20EVLER%C4%B0%20NO%2078%2C%2045140%20Yunusemre%2FManisa&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            title="BRC KALIP & 4 EL PLASTİK — Fabrika Konumu (Google Maps)"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            aria-label="BRC KALIP fabrika konumunu gösteren Google Haritası — Evrenos, Küme Evleri No:78, 45140 Yunusemre/Manisa"
+            className="grayscale hover:grayscale-0 transition-all duration-700"
+          />
+        )}
       </section>
     </>
   );

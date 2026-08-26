@@ -138,6 +138,10 @@ export const translations = {
       kvkkConsentLink: 'KVKK Aydınlatma Metni\'ni',
       kvkkConsentSuffix: 'okudum ve onaylıyorum.',
       kvkkError: 'Devam etmek için KVKK Aydınlatma Metni\'ni onaylamanız gerekmektedir.',
+      mapConsentTitle: 'Haritayı Görüntülemek İster misiniz?',
+      mapConsentDesc: 'Haritayı yüklemek için Google Maps kullanılmaktadır. Google Maps, üçüncü taraf bir hizmettir ve haritayı göstermek için IP adresiniz gibi teknik verileri Google ile paylaşır.',
+      mapConsentButton: 'Haritayı Göster',
+      mapConsentNote: 'Haritayı yükleyerek Google\'ın Gizlilik Politikası\'nı kabul etmiş olursunuz.',
     },
   },
   en: {
@@ -279,6 +283,10 @@ export const translations = {
       kvkkConsentLink: 'KVKK Disclosure Text',
       kvkkConsentSuffix: 'explaining that my personal data will be processed to respond to my contact request.',
       kvkkError: 'You must accept the KVKK Disclosure Text to proceed.',
+      mapConsentTitle: 'Would You Like to View the Map?',
+      mapConsentDesc: 'Google Maps is used to display the map. Google Maps is a third-party service and sharing the map may transmit technical data such as your IP address to Google.',
+      mapConsentButton: 'Show Map',
+      mapConsentNote: 'By loading the map, you accept Google\'s Privacy Policy.',
     },
   },
 };
