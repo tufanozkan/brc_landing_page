@@ -142,6 +142,65 @@ export default function Contact() {
       <Head>
         <title>{t('contact.metaTitle')}</title>
         <meta name="description" content={t('contact.metaDesc')} />
+        <link rel="canonical" href="https://www.brckalip.com.tr/contact" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.brckalip.com.tr/contact" />
+        <meta property="og:title" content={t('contact.metaTitle')} />
+        <meta property="og:description" content={t('contact.metaDesc')} />
+        <meta property="og:image" content="https://www.brckalip.com.tr/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="BRC KALIP & 4 EL PLASTİK — İletişim ve Konum, Manisa" />
+        <meta property="og:locale" content="tr_TR" />
+        <meta property="og:site_name" content="BRC KALIP & 4 EL PLASTİK" />
+
+        {/* Twitter / X */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={t('contact.metaTitle')} />
+        <meta name="twitter:description" content={t('contact.metaDesc')} />
+        <meta name="twitter:image" content="https://www.brckalip.com.tr/og-image.jpg" />
+        <meta name="twitter:image:alt" content="BRC KALIP & 4 EL PLASTİK — İletişim ve Konum, Manisa" />
+
+        {/* LocalBusiness Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "BRC KALIP & 4 EL PLASTİK",
+              "url": "https://www.brckalip.com.tr/contact",
+              "image": "https://www.brckalip.com.tr/og-image.jpg",
+              "description": "Manisa Yunusemre'de faaliyet gösteren BRC KALIP & 4 EL PLASTİK ile iletişime geçin.",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Evrenos, KÜME EVLERİ NO 78",
+                "addressLocality": "Yunusemre",
+                "addressRegion": "Manisa",
+                "postalCode": "45140",
+                "addressCountry": "TR"
+              },
+              "telephone": "+90-507-284-07-98",
+              "email": "bilgi@brckalip.com.tr",
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+                  "opens": "08:00",
+                  "closes": "19:00"
+                }
+              ],
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "38.6000",
+                "longitude": "27.4167"
+              },
+              "hasMap": "https://maps.google.com/maps?q=Evrenos,+K%C3%9CME+EVLER%C4%B0+NO+78,+45140+Yunusemre%2FManisa"
+            })
+          }}
+        />
       </Head>
 
       {/* Header Banner */}

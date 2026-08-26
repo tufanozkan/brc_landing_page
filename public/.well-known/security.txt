@@ -1,0 +1,8 @@
+# security.txt — BRC KALIP & 4 EL PLASTİK
+# https://securitytxt.org
+
+Contact: mailto:bilgi@brckalip.com.tr
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: tr, en
+Canonical: https://www.brckalip.com.tr/.well-known/security.txt
+Policy: https://www.brckalip.com.tr/gizlilik

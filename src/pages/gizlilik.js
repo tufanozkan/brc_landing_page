@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Lock, ChevronRight } from 'lucide-react';
+import { useLanguage } from '@/utils/LanguageContext';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // TASLAK UYARISI: Bu metin düzenlenebilir bir hukuki taslaktır.
@@ -10,122 +11,98 @@ import { Lock, ChevronRight } from 'lucide-react';
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function GizlilikPage() {
+  const { t } = useLanguage();
+
   const sections = [
     {
       id: 'giris',
-      title: '1. Giriş ve Amaç',
+      title: t('gizlilik.s1Title'),
       content: (
-        <p className="text-gray-600 leading-relaxed">
-          Bu Gizlilik Politikası, <strong>BRC KALIP &amp; 4 EL PLASTİK</strong> olarak yönettiğimiz web
-          sitesini ziyaret eden kullanıcıların gizliliğini nasıl koruduğumuzu açıklamaktadır. Web
-          sitemizi kullanmakla bu politikada yer alan koşulları kabul etmiş sayılırsınız.
-        </p>
+        <p className="text-gray-600 leading-relaxed">{t('gizlilik.s1Text')}</p>
       ),
     },
     {
       id: 'toplanan-bilgiler',
-      title: '2. Toplanan Bilgiler',
+      title: t('gizlilik.s2Title'),
       content: (
         <div className="text-gray-600 leading-relaxed space-y-3">
           <p>
-            <strong>Doğrudan sağladığınız bilgiler:</strong> İletişim formu aracılığıyla ad-soyad,
-            e-posta adresi ve mesaj içeriğinizi topluyoruz.
+            <strong>{t('gizlilik.s2Direct')}</strong> {t('gizlilik.s2DirectText')}
           </p>
           <p>
-            <strong>Otomatik olarak toplanan bilgiler:</strong> Web sitemize eriştiğinizde; IP adresi,
-            tarayıcı türü ve versiyonu, işletim sistemi, ziyaret edilen sayfalar ve ziyaret tarihi/saati
-            gibi teknik veriler sunucu kayıtlarına yansıyabilir.
+            <strong>{t('gizlilik.s2Auto')}</strong> {t('gizlilik.s2AutoText')}
           </p>
           <p>
-            <strong>Çerezler (Cookies):</strong> Web sitemiz, teknik işlevsellik için zorunlu çerezler
-            kullanabilir. Pazarlama veya izleme amaçlı üçüncü taraf çerezler{' '}
-            <strong>KULLANILMIYOR</strong>.
+            <strong>{t('gizlilik.s2Cookie')}</strong> {t('gizlilik.s2CookieText')}
           </p>
         </div>
       ),
     },
     {
       id: 'kullanim-amaci',
-      title: '3. Bilgilerin Kullanım Amacı',
+      title: t('gizlilik.s3Title'),
       content: (
         <div className="text-gray-600 leading-relaxed space-y-2">
-          <p>Toplanan bilgiler yalnızca aşağıdaki amaçlarla kullanılmaktadır:</p>
+          <p>{t('gizlilik.s3Intro')}</p>
           <ul className="list-disc list-inside space-y-1 pl-2">
-            <li>İletişim taleplerinizi yanıtlamak</li>
-            <li>Web sitesinin teknik işleyişini sağlamak ve iyileştirmek</li>
-            <li>Güvenlik ihlallerini tespit etmek ve önlemek</li>
-            <li>Yasal yükümlülükleri yerine getirmek</li>
+            <li>{t('gizlilik.s3Li1')}</li>
+            <li>{t('gizlilik.s3Li2')}</li>
+            <li>{t('gizlilik.s3Li3')}</li>
+            <li>{t('gizlilik.s3Li4')}</li>
           </ul>
-          <p className="text-sm text-gray-500 italic pt-1">
-            Bilgileriniz; reklam, pazarlama veya profil oluşturma amacıyla kullanılmamakta ve üçüncü
-            taraflara satılmamaktadır.
-          </p>
+          <p className="text-sm text-gray-500 italic pt-1">{t('gizlilik.s3Note')}</p>
         </div>
       ),
     },
     {
       id: 'paylasim',
-      title: '4. Bilgilerin Paylaşımı',
+      title: t('gizlilik.s4Title'),
       content: (
         <div className="text-gray-600 leading-relaxed space-y-2">
-          <p>Kişisel bilgileriniz aşağıdaki durumlar dışında üçüncü taraflarla paylaşılmamaktadır:</p>
+          <p>{t('gizlilik.s4Intro')}</p>
           <ul className="list-disc list-inside space-y-1 pl-2">
-            <li>
-              Hizmet sağlayıcılar: E-posta iletimi ve hosting hizmetleri için teknik altyapı
-              sağlayıcılarıyla yalnızca gerekli ölçüde paylaşılabilir.
-            </li>
-            <li>
-              Yasal zorunluluk: Yetkili kamu kurum ve kuruluşlarının yasal talebi halinde.
-            </li>
+            <li>{t('gizlilik.s4Li1')}</li>
+            <li>{t('gizlilik.s4Li2')}</li>
           </ul>
         </div>
       ),
     },
     {
       id: 'guvenligi',
-      title: '5. Veri Güvenliği',
+      title: t('gizlilik.s5Title'),
       content: (
-        <p className="text-gray-600 leading-relaxed">
-          Web sitemiz SSL/TLS şifrelemesi ile korunmaktadır. Kişisel verilerinizin yetkisiz erişime,
-          değiştirilmeye veya ifşa edilmeye karşı korunması için uygun teknik ve idari tedbirler
-          alınmaktadır. Bununla birlikte, internet üzerinden hiçbir veri iletiminin yüzde yüz güvenli
-          olduğu garanti edilemez.
-        </p>
+        <p className="text-gray-600 leading-relaxed">{t('gizlilik.s5Text')}</p>
       ),
     },
     {
       id: 'uc-taraf-baglantilar',
-      title: '6. Üçüncü Taraf Bağlantılar',
+      title: t('gizlilik.s6Title'),
       content: (
-        <p className="text-gray-600 leading-relaxed">
-          Web sitemiz, üçüncü taraf web sitelerine bağlantılar içerebilir (örneğin Google Haritalar).
-          Bu sitelerin gizlilik uygulamalarından sorumluluğumuz bulunmamaktadır. İlgili sitelerin
-          gizlilik politikalarını incelemenizi öneririz.
-        </p>
+        <p className="text-gray-600 leading-relaxed">{t('gizlilik.s6Text')}</p>
       ),
     },
     {
       id: 'haklariniz',
-      title: '7. Kullanıcı Hakları',
+      title: t('gizlilik.s7Title'),
       content: (
         <div className="text-gray-600 leading-relaxed space-y-2">
           <p>
-            KVKK kapsamındaki haklarınız için lütfen{' '}
+            {t('gizlilik.s7Intro')}{' '}
             <Link href="/kvkk" className="text-tealAccent hover:underline font-medium">
-              KVKK Aydınlatma Metni
+              {t('gizlilik.s7KvkkLink')}
             </Link>{' '}
-            sayfamızı inceleyiniz.
+            {t('gizlilik.s7IntroSuffix')}
           </p>
-          <p>Taleplerinizi aşağıdaki kanallardan iletebilirsiniz:</p>
+          <p>{t('gizlilik.s7ContactIntro')}</p>
           <ul className="list-disc list-inside space-y-1 pl-2">
             <li>
-              <strong>E-posta:</strong>{' '}
+              <strong>{t('gizlilik.s7ContactEmail')}</strong>{' '}
               <a href="mailto:bilgi@brckalip.com.tr" className="text-tealAccent hover:underline">
                 bilgi@brckalip.com.tr
               </a>
             </li>
             <li>
-              <strong>Adres:</strong> Evrenos, Küme Evleri No:78, 45140 Yunusemre/Manisa
+              <strong>{t('gizlilik.s7ContactAddress')}</strong> {t('gizlilik.s7ContactAddressVal')}
             </li>
           </ul>
         </div>
@@ -133,12 +110,11 @@ export default function GizlilikPage() {
     },
     {
       id: 'degisiklikler',
-      title: '8. Politika Değişiklikleri',
+      title: t('gizlilik.s8Title'),
       content: (
         <p className="text-gray-600 leading-relaxed">
-          Bu Gizlilik Politikası, gerekli görüldüğünde güncellenerek bu sayfada yayımlanacaktır.
-          Önemli değişiklikler için kullanıcıları ayrıca bilgilendirme yoluna gidilebilir.{' '}
-          <strong>Son güncelleme tarihi: Ağustos 2026</strong>
+          {t('gizlilik.s8Text')}{' '}
+          <strong>{t('gizlilik.s8Date')}</strong>
         </p>
       ),
     },
@@ -147,12 +123,15 @@ export default function GizlilikPage() {
   return (
     <>
       <Head>
-        <title>Gizlilik Politikası | BRC KALIP &amp; 4 EL PLASTİK</title>
-        <meta
-          name="description"
-          content="BRC KALIP & 4 EL PLASTİK Gizlilik Politikası — Kişisel verilerinizin gizliliğini nasıl koruduğumuza ilişkin bilgilendirme."
-        />
+        <title>{t('gizlilik.pageTitle')}</title>
+        <meta name="description" content={t('gizlilik.metaDesc')} />
+        <link rel="canonical" href="https://www.brckalip.com.tr/gizlilik" />
         <meta name="robots" content="noindex, follow" />
+        <meta property="og:title" content={t('gizlilik.pageTitle')} />
+        <meta property="og:description" content={t('gizlilik.metaDesc')} />
+        <meta property="og:url" content="https://www.brckalip.com.tr/gizlilik" />
+        <meta property="og:site_name" content="BRC KALIP & 4 EL PLASTİK" />
+        <meta property="og:locale" content="tr_TR" />
       </Head>
 
       {/* Page Header */}
@@ -168,11 +147,10 @@ export default function GizlilikPage() {
               <Lock size={32} className="text-orangeAccent" />
             </div>
             <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-              Gizlilik Politikası
+              {t('gizlilik.headerTitle')}
             </h1>
             <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Web sitemizi ziyaret ettiğinizde gizliliğinizi nasıl koruduğumuzu bu sayfada
-              açıklıyoruz.
+              {t('gizlilik.headerSubtitle')}
             </p>
           </motion.div>
         </div>
@@ -183,10 +161,10 @@ export default function GizlilikPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav className="flex items-center gap-1 text-sm text-gray-500">
             <Link href="/" className="hover:text-tealAccent transition-colors">
-              Ana Sayfa
+              {t('gizlilik.breadcrumbHome')}
             </Link>
             <ChevronRight size={14} className="text-gray-400" />
-            <span className="text-charcoal font-medium">Gizlilik Politikası</span>
+            <span className="text-charcoal font-medium">{t('gizlilik.breadcrumbCurrent')}</span>
           </nav>
         </div>
       </div>
@@ -203,9 +181,7 @@ export default function GizlilikPage() {
             {/* Intro */}
             <div className="bg-lightGray rounded-2xl p-6 border border-gray-100">
               <p className="text-gray-600 leading-relaxed text-sm">
-                <strong>BRC KALIP &amp; 4 EL PLASTİK</strong> olarak kişisel verilerinizin gizliliğini
-                önemsiyoruz. Bu politika, web sitemizi ziyaretiniz sırasında hangi bilgilerin
-                toplandığını ve bu bilgilerin nasıl korunduğunu anlatmaktadır.
+                {t('gizlilik.introText')}
               </p>
             </div>
 
@@ -233,13 +209,13 @@ export default function GizlilikPage() {
                 href="/kvkk"
                 className="inline-flex items-center justify-center px-8 py-3 bg-tealAccent hover:bg-tealAccent/90 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 gap-2"
               >
-                KVKK Aydınlatma Metni
+                {t('gizlilik.ctaKvkk')}
               </Link>
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center px-8 py-3 border-2 border-orangeAccent text-orangeAccent font-semibold rounded-lg hover:bg-orangeAccent hover:text-white transition-all duration-300 gap-2"
               >
-                İletişim Formuna Git
+                {t('gizlilik.ctaContact')}
               </Link>
             </div>
           </motion.div>

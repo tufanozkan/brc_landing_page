@@ -1,0 +1,11 @@
+# robots.txt — BRC KALIP & 4 EL PLASTİK
+# https://www.brckalip.com.tr/robots.txt
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /404
+
+# Sitemap
+Sitemap: https://www.brckalip.com.tr/sitemap.xml
