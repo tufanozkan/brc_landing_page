@@ -1,0 +1,32 @@
+export const companyClaims = {
+  tr: {
+    completedProjectsVal: "Geniş Portföy",
+    completedProjectsSub: "Başarılı Proje",
+    activeFacility: "bölgenin önde gelen tesislerinden biriyiz",
+    customerSatisfactionVal: "Yüksek",
+    customerSatisfactionSub: "Müşteri Memnuniyeti",
+    internationalStandards: "yüksek kalite standartlarında",
+    sectorLeadership: "Sektörel Deneyim",
+    plasticExperienceVal: "Köklü",
+    plasticExperienceSub: "Sektörel Uzmanlık",
+    plasticMachineVal: "Yüksek Verimli",
+    plasticMachineSub: "Kesintisiz Üretim",
+    plasticCapacityVal: "Yüksek",
+    plasticCapacitySub: "Üretim Hacmi",
+  },
+  en: {
+    completedProjectsVal: "Wide Portfolio",
+    completedProjectsSub: "Successful Projects",
+    activeFacility: "we are one of the leading facilities in the region",
+    customerSatisfactionVal: "High",
+    customerSatisfactionSub: "Customer Satisfaction",
+    internationalStandards: "at high quality standards",
+    sectorLeadership: "Sectoral Experience",
+    plasticExperienceVal: "Extensive",
+    plasticExperienceSub: "Sectoral Expertise",
+    plasticMachineVal: "High Efficiency",
+    plasticMachineSub: "Uninterrupted Production",
+    plasticCapacityVal: "High",
+    plasticCapacitySub: "Production Volume",
+  }
+};
