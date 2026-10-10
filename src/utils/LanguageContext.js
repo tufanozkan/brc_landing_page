@@ -1,44 +1,75 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useEffect, useCallback, useMemo, useSyncExternalStore, useContext } from 'react';
 import { translations } from './translations';
 
 const LanguageContext = createContext();
 
-export function LanguageProvider({ children }) {
-  const [language, setLanguageState] = useState('tr');
+const STORAGE_KEY = 'language';
+const DEFAULT_LANGUAGE = 'tr';
+const listeners = new Set();
 
-  // Load language preference from localStorage on mount
+function subscribe(callback) {
+  listeners.add(callback);
+  window.addEventListener('storage', callback);
+  return () => {
+    listeners.delete(callback);
+    window.removeEventListener('storage', callback);
+  };
+}
+
+// Client snapshot: saved preference (localStorage) or default.
+function getSnapshot() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved === 'tr' || saved === 'en' ? saved : DEFAULT_LANGUAGE;
+  } catch {
+    return DEFAULT_LANGUAGE;
+  }
+}
+
+// Server snapshot: always default so SSR / hydration markup matches.
+function getServerSnapshot() {
+  return DEFAULT_LANGUAGE;
+}
+
+export function LanguageProvider({ children }) {
+  const language = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  // Keep <html lang> in sync with the selected language (a11y + SEO)
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language');
-    if (savedLanguage && (savedLanguage === 'tr' || savedLanguage === 'en')) {
-      setLanguageState(savedLanguage);
+    document.documentElement.lang = language;
+  }, [language]);
+
+  const setLanguage = useCallback((lang) => {
+    if (lang !== 'tr' && lang !== 'en') return;
+    try {
+      localStorage.setItem(STORAGE_KEY, lang);
+    } catch {
+      // storage unavailable (private mode etc.) — preference just won't persist
     }
+    listeners.forEach((listener) => listener());
   }, []);
 
-  const setLanguage = (lang) => {
-    setLanguageState(lang);
-    localStorage.setItem('language', lang);
-  };
-
   // Helper function to resolve nested keys like "home.heroSubtitle"
-  const t = (path) => {
-    const keys = path.split('.');
-    let result = translations[language];
-    
-    for (const key of keys) {
-      if (result && result[key] !== undefined) {
-        result = result[key];
-      } else {
-        return path; // Fallback to path itself if not found
-      }
-    }
-    return result;
-  };
+  const t = useCallback(
+    (path) => {
+      const keys = path.split('.');
+      let result = translations[language];
 
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
-      {children}
-    </LanguageContext.Provider>
+      for (const key of keys) {
+        if (result && result[key] !== undefined) {
+          result = result[key];
+        } else {
+          return path; // Fallback to path itself if not found
+        }
+      }
+      return result;
+    },
+    [language]
   );
+
+  const value = useMemo(() => ({ language, setLanguage, t }), [language, setLanguage, t]);
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export function useLanguage() {

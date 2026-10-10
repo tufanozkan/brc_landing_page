@@ -2,42 +2,66 @@ import nodemailer from 'nodemailer';
 
 // ─── In-Memory IP Rate Limiter ─────────────────────────────────────────────
 // Sliding window: max 5 requests per IP per 15 minutes.
+// NOTE: state is per server instance. On serverless platforms (e.g. Vercel)
+// use a shared store (Upstash / Redis) for a strict global limit.
 const rateLimitMap = new Map();
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const RATE_LIMIT_MAX_TRACKED_IPS = 10000;
+
+function pruneRateLimitMap(now) {
+  const windowStart = now - RATE_LIMIT_WINDOW_MS;
+  for (const [key, hits] of rateLimitMap) {
+    if (!hits.length || hits[hits.length - 1] <= windowStart) {
+      rateLimitMap.delete(key);
+    }
+  }
+}
 
 function isRateLimited(ip) {
   const now = Date.now();
   const windowStart = now - RATE_LIMIT_WINDOW_MS;
+
+  // Prevent unbounded memory growth
+  if (rateLimitMap.size >= RATE_LIMIT_MAX_TRACKED_IPS) pruneRateLimitMap(now);
+
   const hits = (rateLimitMap.get(ip) || []).filter((t) => t > windowStart);
   hits.push(now);
   rateLimitMap.set(ip, hits);
   return hits.length > RATE_LIMIT_MAX;
 }
 
-// ─── HTML Sanitizer ────────────────────────────────────────────────────────
-function sanitize(str) {
+// ─── Input Cleaning ────────────────────────────────────────────────────────
+// Strips control characters; single-line fields additionally lose CR/LF so
+// they can never inject extra mail headers.
+function cleanText(str) {
   if (typeof str !== 'string') return '';
-  return str
-    .replace(/<[^>]*>/g, '')
-    .replace(/[<>&"'`]/g, (c) => ({
-      '<': '&lt;',
-      '>': '&gt;',
-      '&': '&amp;',
-      '"': '&quot;',
-      "'": '&#x27;',
-      '`': '&#x60;',
-    }[c]))
-    .trim();
+  return str.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '').trim();
+}
+
+function cleanLine(str) {
+  return cleanText(str).replace(/[\r\n]+/g, ' ');
+}
+
+// ─── HTML Escaping (only for the HTML mail body) ───────────────────────────
+function escapeHtml(str) {
+  return str.replace(/[<>&"'`]/g, (c) => ({
+    '<': '&lt;',
+    '>': '&gt;',
+    '&': '&amp;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '`': '&#x60;',
+  }[c]));
 }
 
 // ─── Field Validators ──────────────────────────────────────────────────────
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_RE = /^[^\s@<>"',;]+@[^\s@<>"',;]+\.[^\s@<>"',;]+$/;
 
 function validate({ name, email, subject, message }) {
   if (!name || name.length < 2 || name.length > 100)
     return 'Ad Soyad 2-100 karakter arasinda olmalidir.';
-  if (!email || !EMAIL_RE.test(email))
+  if (!email || email.length > 254 || !EMAIL_RE.test(email))
     return 'Gecerli bir e-posta adresi giriniz.';
   if (!subject || subject.length < 2 || subject.length > 200)
     return 'Konu 2-200 karakter arasinda olmalidir.';
@@ -58,12 +82,13 @@ async function verifyTurnstile(token) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ secret, response: token }),
+      signal: AbortSignal.timeout(5000),
     });
     const data = await res.json();
     return data.success === true;
   } catch {
-    console.error('[Turnstile] Verification request failed, failing open.');
-    return true;
+    console.error('[Turnstile] Verification request failed, rejecting request.');
+    return false;
   }
 }
 
@@ -98,23 +123,23 @@ function buildHtmlEmail({ name, email, subject, message }) {
     <div class="body">
       <div class="field">
         <div class="field-label">Gonderen</div>
-        <div class="field-value">${name}</div>
+        <div class="field-value">${escapeHtml(name)}</div>
       </div>
       <div class="field">
         <div class="field-label">E-Posta</div>
-        <div class="field-value"><a href="mailto:${email}">${email}</a></div>
+        <div class="field-value"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>
       </div>
       <div class="field">
         <div class="field-label">Konu</div>
-        <div class="field-value">${subject}</div>
+        <div class="field-value">${escapeHtml(subject)}</div>
       </div>
       <div class="field">
         <div class="field-label">Mesaj</div>
-        <div class="message-box">${message}</div>
+        <div class="message-box">${escapeHtml(message)}</div>
       </div>
       <div class="field" style="margin-top:24px;">
         <div class="field-label">Gonderilme Tarihi</div>
-        <div class="field-value" style="font-size:13px;color:#888;">${date}</div>
+        <div class="field-value" style="font-size:13px;color:#888;">${escapeHtml(date)}</div>
       </div>
     </div>
     <div class="footer">
@@ -127,13 +152,21 @@ function buildHtmlEmail({ name, email, subject, message }) {
 
 // ─── Nodemailer Transporter ────────────────────────────────────────────────
 function createTransporter() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER, SMTP_PASS } = process.env;
+  const {
+    SMTP_HOST,
+    SMTP_PORT,
+    SMTP_SECURE,
+    SMTP_USER,
+    SMTP_PASS,
+    SMTP_TLS_REJECT_UNAUTHORIZED,
+  } = process.env;
 
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-    throw new Error('SMTP ort am degiskenleri eksik. .env.local dosyanizi kontrol edin.');
+    throw new Error('SMTP ortam degiskenleri eksik. .env.local dosyanizi kontrol edin.');
   }
 
-  const port = parseInt(SMTP_PORT || '465', 10);
+  const parsedPort = parseInt(SMTP_PORT || '465', 10);
+  const port = Number.isNaN(parsedPort) ? 465 : parsedPort;
   const secure = SMTP_SECURE !== 'false';
 
   return nodemailer.createTransport({
@@ -141,7 +174,12 @@ function createTransporter() {
     port,
     secure,
     auth: { user: SMTP_USER, pass: SMTP_PASS },
-    tls: { rejectUnauthorized: false },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 20000,
+    // Certificate validation is ON by default. Only disable it explicitly
+    // (SMTP_TLS_REJECT_UNAUTHORIZED=false) for hosts with a broken certificate.
+    tls: { rejectUnauthorized: SMTP_TLS_REJECT_UNAUTHORIZED !== 'false' },
   });
 }
 
@@ -266,10 +304,10 @@ export default async function handler(req, res) {
     });
   }
 
-  const cleanName    = sanitize(name);
-  const cleanEmail   = sanitize(email);
-  const cleanSubject = sanitize(subject);
-  const cleanMessage = sanitize(message);
+  const cleanName    = cleanLine(name);
+  const cleanEmail   = cleanLine(email);
+  const cleanSubject = cleanLine(subject);
+  const cleanMessage = cleanText(message);
 
   const validationError = validate({
     name: cleanName,
@@ -284,14 +322,14 @@ export default async function handler(req, res) {
   try {
     const transporter = createTransporter();
 
-    const toEmail   = process.env.CONTACT_TO_EMAIL || 'info@brckalip.com.tr';
+    const toEmail   = process.env.CONTACT_TO_EMAIL || 'bilgi@brckalip.com.tr';
     const fromName  = process.env.CONTACT_FROM_NAME || 'BRC Kalip Website';
     const fromEmail = process.env.SMTP_USER;
 
     await transporter.sendMail({
-      from: `"${fromName}" <${fromEmail}>`,
+      from: { name: fromName, address: fromEmail },
       to: toEmail,
-      replyTo: `"${cleanName}" <${cleanEmail}>`,
+      replyTo: { name: cleanName, address: cleanEmail },
       subject: `[Website Iletisim] ${cleanSubject}`,
       text: `Gonderen: ${cleanName} <${cleanEmail}>\n\n${cleanMessage}`,
       html: buildHtmlEmail({

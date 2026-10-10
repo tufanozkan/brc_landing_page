@@ -278,13 +278,12 @@ export default function Plastic() {
                 <p>
                   {t('plastic.aboutP2')}
                 </p>
-                <div className="p-6 bg-lightGray rounded-xl border border-gray-200 mt-8">
-                  <ul className="space-y-3 font-medium text-gray-700">
-                    <li className="flex items-center gap-3"><CheckCircle2 className="text-orangeAccent" size={20} aria-hidden="true" /> {t('plastic.aboutList1')}</li>
-                    <li className="flex items-center gap-3"><CheckCircle2 className="text-orangeAccent" size={20} aria-hidden="true" /> {t('plastic.aboutList2')}</li>
-                    <li className="flex items-center gap-3"><CheckCircle2 className="text-orangeAccent" size={20} aria-hidden="true" /> {t('plastic.aboutList3')}</li>
-                  </ul>
-                </div>
+                <p>
+                  {t('plastic.aboutP3')}
+                </p>
+                <p>
+                  {t('plastic.aboutP4')}
+                </p>
               </div>
             </motion.div>
           </div>

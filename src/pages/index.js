@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,25 +6,32 @@ import { Target, Lightbulb, Cog, ArrowRight, CheckCircle2, Volume2, VolumeX } fr
 import Link from 'next/link';
 import { useLanguage } from '@/utils/LanguageContext';
 
+const noopSubscribe = () => () => {};
+const getHasSeenIntro = () => {
+  try {
+    return sessionStorage.getItem('hasSeenIntro') === 'true';
+  } catch {
+    return false;
+  }
+};
+// On the server we assume "seen" so the overlay is never part of the SSR markup.
+const getServerHasSeenIntro = () => true;
+
 export default function Home() {
   const { language, t } = useLanguage();
-  const [showIntro, setShowIntro] = useState(false);
+  const [introDismissed, setIntroDismissed] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const hasSeen = sessionStorage.getItem('hasSeenIntro');
-      if (!hasSeen) {
-        setShowIntro(true);
-      }
-    }
-  }, []);
+  const hasSeenIntro = useSyncExternalStore(noopSubscribe, getHasSeenIntro, getServerHasSeenIntro);
+  const showIntro = !hasSeenIntro && !introDismissed;
 
   const handleCloseIntro = () => {
-    if (typeof window !== 'undefined') {
+    try {
       sessionStorage.setItem('hasSeenIntro', 'true');
+    } catch {
+      // storage unavailable — intro just may show again next visit
     }
-    setShowIntro(false);
+    setIntroDismissed(true);
   };
 
   useEffect(() => {
@@ -408,9 +415,11 @@ export default function Home() {
                     key={`track1-${idx}`} 
                     className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
                   >
-                    <img 
+                    <Image 
                       src={logo.src} 
                       alt={logo.alt} 
+                      width={160}
+                      height={64}
                       className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
                     />
                   </div>
@@ -424,9 +433,11 @@ export default function Home() {
                     key={`track2-${idx}`} 
                     className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
                   >
-                    <img 
+                    <Image 
                       src={logo.src} 
                       alt={logo.alt} 
+                      width={160}
+                      height={64}
                       className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
                     />
                   </div>

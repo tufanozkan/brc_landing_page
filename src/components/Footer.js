@@ -99,13 +99,13 @@ export default function Footer() {
             <p className="text-sm text-gray-400 mb-4">
               {t('footer.directionsDesc')}
             </p>
-            <a 
+            <Link 
               href="/contact" 
               className="inline-flex items-center justify-center w-full px-6 py-3 bg-orangeAccent hover:bg-orangeAccent/90 text-white font-medium rounded-lg shadow-lg hover:shadow-orange-500/10 transition-all duration-300 gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               <MapPin size={18} aria-hidden="true" />
               {t('footer.directionsButton')}
-            </a>
+            </Link>
           </div>
 
         </div>
