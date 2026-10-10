@@ -4,6 +4,18 @@ import { motion } from 'framer-motion';
 import { ShieldCheck, Truck, BarChart3, ArrowRight, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/utils/LanguageContext';
+import ExampleWorksGallery from '@/components/ExampleWorksGallery';
+
+// Images located in /public/photos/4el_ornek
+const sampleWorks = [
+  'WhatsApp Image 2026-10-07 at 10.16.15.jpeg',
+  'WhatsApp Image 2026-10-07 at 10.16.15-2.jpeg',
+  'WhatsApp Image 2026-10-07 at 10.16.15-3.jpeg',
+  'WhatsApp Image 2026-10-07 at 10.16.16.jpeg',
+  'WhatsApp Image 2026-10-07 at 10.16.16-2.jpeg',
+  'WhatsApp Image 2026-10-07 at 10.16.16-3.jpeg',
+  'WhatsApp Image 2026-10-07 at 10.16.33.jpeg',
+].map((file) => ({ src: `/photos/4el_ornek/${file}` }));
 
 export default function Plastic() {
   const { language, t } = useLanguage();
@@ -252,7 +264,7 @@ export default function Plastic() {
               <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                 <div className="absolute inset-0 bg-tealAccent/10 z-10 mix-blend-overlay rounded-3xl"></div>
                 <Image 
-                  src="/photos/b.png" 
+                  src="/photos/4el_main_picture.png" 
                   alt="4 El Plastik Fabrika"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -290,6 +302,24 @@ export default function Plastic() {
         </div>
       </section>
 
+      {/* Sample Works Section */}
+      <section id="ornek-calismalar" className="py-24 bg-lightGray overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8"
+          >
+            <span className="text-tealAccent font-semibold tracking-wider uppercase text-sm mb-2 block">{t('plastic.examplesProfile')}</span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-charcoal">{t('plastic.examplesTitle')}</h2>
+            <p className="text-gray-600 mt-4 text-lg">{t('plastic.examplesSubtitle')}</p>
+          </motion.div>
+        </div>
+
+        <ExampleWorksGallery images={sampleWorks} />
+      </section>
 
 
     </>

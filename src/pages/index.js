@@ -5,6 +5,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Target, Lightbulb, Cog, ArrowRight, CheckCircle2, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/utils/LanguageContext';
+import ExampleWorksGallery from '@/components/ExampleWorksGallery';
+
+// Images located in /public/photos/kalip_ornek
+const sampleWorks = [
+  'Screenshot 2026-10-10 at 20.00.28.png',
+  'Screenshot 2026-10-10 at 20.01.00.png',
+  'Screenshot 2026-10-10 at 20.01.30.png',
+  'Screenshot 2026-10-10 at 20.01.58.png',
+  'Screenshot 2026-10-10 at 20.02.23.png',
+  'Screenshot 2026-10-10 at 20.03.00.png',
+].map((file) => ({ src: `/photos/kalip_ornek/${file}` }));
 
 const noopSubscribe = () => () => {};
 const getHasSeenIntro = () => {
@@ -390,59 +401,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* References Section */}
-      <section className="py-24 bg-charcoal text-white overflow-hidden">
+      {/* Sample Works Section */}
+      <section id="ornek-calismalar" className="py-24 bg-lightGray overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-white">{t('home.refTitle')}</h2>
-            <p className="text-gray-400 mt-4 text-lg">{t('home.refSubtitle')}</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-8"
+          >
+            <span className="text-tealAccent font-semibold tracking-wider uppercase text-sm mb-2 block">{t('home.examplesProfile')}</span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-charcoal">{t('home.examplesTitle')}</h2>
+            <p className="text-gray-600 mt-4 text-lg">{t('home.examplesSubtitle')}</p>
+          </motion.div>
+        </div>
 
-          {/* Seamless Infinite Marquee for References */}
-          <div className="relative w-full overflow-hidden group">
-            {/* Left & Right subtle gradient fade for smooth transitions */}
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-charcoal to-transparent z-10" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-charcoal to-transparent z-10" />
+        <ExampleWorksGallery images={sampleWorks} i18nPrefix="home" />
+      </section>
 
-            <div 
-              className="flex w-max gap-12 py-8"
-              style={{ '--marquee-gap': '3rem' }}
+      {/* References Section */}
+      <section className="relative py-24 bg-charcoal text-white overflow-hidden">
+        {/* Decorative background */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:48px_48px]" />
+        <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 rounded-full bg-tealAccent/20 blur-3xl" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left: heading */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5 text-center lg:text-left"
             >
-              {/* First Track */}
-              <div className="flex shrink-0 items-center gap-12 animate-marquee group-hover:[animation-play-state:paused]">
-                {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
-                  <div 
-                    key={`track1-${idx}`} 
-                    className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
-                  >
-                    <Image 
-                      src={logo.src} 
-                      alt={logo.alt} 
-                      width={160}
-                      height={64}
-                      className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
-                    />
-                  </div>
-                ))}
-              </div>
+              <div className="w-16 h-1 bg-tealAccent rounded-full mb-6 mx-auto lg:mx-0" />
+              <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">{t('home.refTitle')}</h2>
+              <p className="text-gray-400 mt-4 text-lg">{t('home.refSubtitle')}</p>
+            </motion.div>
 
-              {/* Second Track (Seamless Duplicate) */}
-              <div aria-hidden="true" className="flex shrink-0 items-center gap-12 animate-marquee group-hover:[animation-play-state:paused]">
-                {[...partnerLogos, ...partnerLogos].map((logo, idx) => (
-                  <div 
-                    key={`track2-${idx}`} 
-                    className="inline-flex w-48 h-24 px-6 py-4 bg-white rounded-xl shadow-sm border border-gray-100 items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-90 hover:opacity-100 hover:-translate-y-1 group/card flex-shrink-0"
-                  >
-                    <Image 
-                      src={logo.src} 
-                      alt={logo.alt} 
-                      width={160}
-                      height={64}
-                      className="max-h-full max-w-full object-contain filter drop-shadow-sm transition-transform duration-300 group-hover/card:scale-105" 
+            {/* Right: static logo wall (uniform cards, 3 cols x 2 rows) */}
+            <div className="lg:col-span-7 w-full max-w-xl mx-auto lg:mr-0 grid grid-cols-2 sm:grid-cols-3 auto-rows-fr gap-4">
+              {partnerLogos.map((logo, idx) => (
+                <motion.div
+                  key={logo.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.08 }}
+                  className="group min-w-0 h-24 sm:h-28 p-5 bg-white rounded-xl ring-2 ring-transparent hover:ring-tealAccent shadow-lg shadow-black/20 transition-all duration-300"
+                >
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      sizes="(max-width: 640px) 45vw, 180px"
+                      className="object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
                     />
                   </div>
-                ))}
-              </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
